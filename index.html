@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,6 +7,7 @@
 <title>Portal de Validación - Sanatorio Allende</title>
 
 <style>
+
 *{
 margin:0;
 padding:0;
@@ -14,7 +16,7 @@ font-family:Arial, Helvetica, sans-serif;
 }
 
 body{
-background:linear-gradient(135deg,#eaf4ff,#d8e8f8);
+background:linear-gradient(135deg,#e8f2fb,#dceaf7);
 min-height:100vh;
 display:flex;
 justify-content:center;
@@ -24,27 +26,16 @@ padding:20px;
 
 .card{
 width:100%;
-max-width:650px;
-background:white;
-border-radius:24px;
+max-width:700px;
+background:#fff;
+border-radius:25px;
 overflow:hidden;
-box-shadow:0 20px 50px rgba(0,0,0,.15);
-border:1px solid #dce7f3;
-}
-width:100%;
-max-width:550px;
-background:white;
-border-radius:20px;
-overflow:hidden;
-box-shadow:0 10px 30px rgba(0,0,0,.15);
+box-shadow:0 15px 40px rgba(0,0,0,.15);
 }
 
 .header{
-.header{
-background:linear-gradient(135deg,#4c86bd,#2f6ca5);
-padding:40px;
-text-align:center;
-}padding:30px;
+background:linear-gradient(135deg,#4f8bc5,#2e6ea9);
+padding:30px;
 text-align:center;
 }
 
@@ -53,71 +44,76 @@ max-width:320px;
 width:100%;
 }
 
-.contenido{
-padding:35px;
+.content{
+padding:40px;
 }
 
 h1{
 text-align:center;
-color:#1f3d5c;
+color:#18406b;
 margin-bottom:10px;
 }
 
 .sub{
 text-align:center;
 color:#666;
-margin-bottom:25px;
+margin-bottom:30px;
 }
 
 input{
 width:100%;
-padding:15px;
-border:1px solid #ccc;
-border-radius:10px;
+padding:16px;
 font-size:18px;
+border:2px solid #d5dce3;
+border-radius:12px;
+margin-bottom:15px;
 }
 
-transition:.3s;
-font-weight:bold;
-letter-spacing:.5px;
+button{
 width:100%;
-margin-top:15px;
-padding:15px;
-border:none;
-background:#4c86bd;
-color:white;
+padding:16px;
 font-size:18px;
-border-radius:10px;
+font-weight:bold;
+border:none;
+border-radius:12px;
 cursor:pointer;
+background:#2e6ea9;
+color:white;
+transition:.3s;
 }
 
 button:hover{
-opacity:.9;
+background:#21537f;
 }
 
 .ok{
-background:#e8f8ec;
+background:#eaf9ee;
 border-left:6px solid #28a745;
 padding:20px;
 margin-top:20px;
-border-radius:10px;
+border-radius:12px;
 }
 
-.error{
-background:#fdeaea;
+.er{
+background:#fff0f0;
 border-left:6px solid #dc3545;
 padding:20px;
 margin-top:20px;
-border-radius:10px;
+border-radius:12px;
 }
 
-.ok h2{
-color:#28a745;
+.pdf{
+margin-top:15px;
+background:#198754;
 }
 
-.error h2{
-color:#dc3545;
+.footer{
+text-align:center;
+padding:20px;
+color:#777;
+font-size:14px;
 }
+
 </style>
 </head>
 
@@ -126,17 +122,21 @@ color:#dc3545;
 <div class="card">
 
 <div class="header">
-<img src="LOGO ALLENDE.jpg">
+<img src="LOGO ALLENDE.jpg" alt="Sanatorio Allende">
+</div>
 
-<div class="contenido">
+<div class="content">
 
 <h1>Portal de Validación</h1>
 
 <p class="sub">
-Verificación de asistencia en Guardia
+Verificación de atención en Guardia Central
 </p>
 
-<input type="text" id="dni" placeholder="Ingrese DNI">
+<input
+type="text"
+id="dni"
+placeholder="Ingrese DNI">
 
 <button onclick="buscar()">
 Validar Asistencia
@@ -144,6 +144,10 @@ Validar Asistencia
 
 <div id="resultado"></div>
 
+</div>
+
+<div class="footer">
+Sanatorio Allende · Sistema de Validación de Atención
 </div>
 
 </div>
@@ -155,36 +159,38 @@ const pacientes = [
 {
 dni:"30123456",
 nombre:"Juan Perez",
-fecha:"02/06/2026",
+fecha:"03/06/2026",
 hora:"14:35",
-sector:"Guardia"
+sector:"Guardia Central"
 },
 
 {
 dni:"28987654",
 nombre:"Maria Gomez",
-fecha:"02/06/2026",
+fecha:"03/06/2026",
 hora:"10:20",
-sector:"Guardia"
+sector:"Guardia Central"
 }
 
 ];
 
 function buscar(){
 
-const dni=document.getElementById("dni").value.trim();
+const dni =
+document.getElementById("dni").value.trim();
 
-const paciente=pacientes.find(
-p=>p.dni===dni
+const paciente =
+pacientes.find(
+p => p.dni === dni
 );
 
 if(paciente){
 
-document.getElementById("resultado").innerHTML=`
+document.getElementById("resultado").innerHTML = `
 
 <div class="ok">
 
-<h2>✓ ASISTENCIA CONFIRMADA</h2>
+<h2>✅ ASISTENCIA CONFIRMADA</h2>
 
 <br>
 
@@ -198,23 +204,130 @@ document.getElementById("resultado").innerHTML=`
 
 <p><b>Sector:</b> ${paciente.sector}</p>
 
+<button
+class="pdf"
+onclick="descargarPDF(
+'${paciente.nombre}',
+'${paciente.dni}',
+'${paciente.fecha}',
+'${paciente.hora}',
+'${paciente.sector}'
+)">
+📄 Descargar Constancia
+</button>
+
 </div>
 
 `;
 
 }else{
 
-document.getElementById("resultado").innerHTML=`
+document.getElementById("resultado").innerHTML = `
 
-<div class="error">
-
-<h2>✗ NO SE ENCONTRARON REGISTROS</h2>
-
+<div class="er">
+<h2>❌ No se encontraron registros</h2>
 </div>
 
 `;
 
 }
+
+}
+
+function descargarPDF(
+nombre,
+dni,
+fecha,
+hora,
+sector
+){
+
+const ventana =
+window.open('', '_blank');
+
+ventana.document.write(`
+
+<html>
+
+<head>
+
+<title>Constancia</title>
+
+<style>
+
+body{
+font-family:Arial;
+padding:40px;
+}
+
+h1{
+color:#2e6ea9;
+}
+
+.caja{
+border:1px solid #ccc;
+padding:30px;
+border-radius:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="caja">
+
+<h1>Sanatorio Allende</h1>
+
+<h2>Constancia de Atención</h2>
+
+<p>
+Se deja constancia que:
+</p>
+
+<p>
+<b>${nombre}</b>
+</p>
+
+<p>
+DNI: ${dni}
+</p>
+
+<p>
+Asistió a Guardia Central.
+</p>
+
+<p>
+Fecha: ${fecha}
+</p>
+
+<p>
+Hora: ${hora}
+</p>
+
+<p>
+Código:
+VAL-${dni}-${fecha.replaceAll('/','')}
+</p>
+
+<br>
+
+<p>
+Documento emitido electrónicamente.
+</p>
+
+</div>
+
+<script>
+window.print();
+</script>
+
+</body>
+
+</html>
+
+`);
 
 }
 
