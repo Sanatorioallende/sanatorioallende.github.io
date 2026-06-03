@@ -14,7 +14,7 @@ font-family:Arial, Helvetica, sans-serif;
 }
 
 body{
-background:#f3f7fb;
+background:linear-gradient(135deg,#eaf4ff,#d8e8f8);
 min-height:100vh;
 display:flex;
 justify-content:center;
@@ -24,6 +24,14 @@ padding:20px;
 
 .card{
 width:100%;
+max-width:650px;
+background:white;
+border-radius:24px;
+overflow:hidden;
+box-shadow:0 20px 50px rgba(0,0,0,.15);
+border:1px solid #dce7f3;
+}
+width:100%;
 max-width:550px;
 background:white;
 border-radius:20px;
@@ -32,13 +40,16 @@ box-shadow:0 10px 30px rgba(0,0,0,.15);
 }
 
 .header{
-background:#4c86bd;
-padding:30px;
+.header{
+background:linear-gradient(135deg,#4c86bd,#2f6ca5);
+padding:40px;
+text-align:center;
+}padding:30px;
 text-align:center;
 }
 
 .header img{
-max-width:250px;
+max-width:320px;
 width:100%;
 }
 
@@ -66,7 +77,9 @@ border-radius:10px;
 font-size:18px;
 }
 
-button{
+transition:.3s;
+font-weight:bold;
+letter-spacing:.5px;
 width:100%;
 margin-top:15px;
 padding:15px;
