@@ -177,46 +177,19 @@ function buscar(){
 
 const dni = document.getElementById("dni").value.trim();
 
-console.log("Buscando DNI:", dni);
-
-const paciente = pacientes.find(function(p){
-return p.dni === dni;
-});
-
-console.log("Resultado:", paciente);
+const paciente = pacientes.find(p => p.dni === dni);
 
 if(paciente){
 
-document.getElementById("resultado").innerHTML = `
-<div class="ok">
-<h2>✅ ASISTENCIA CONFIRMADA</h2>
-<br>
-<p><b>Paciente:</b> ${paciente.nombre}</p>
-<p><b>DNI:</b> ${paciente.dni}</p>
-<p><b>Fecha:</b> ${paciente.fecha}</p>
-<p><b>Hora:</b> ${paciente.hora}</p>
-<p><b>Sector:</b> ${paciente.sector}</p>
-<button
-class="pdf"
-onclick="descargarPDF(
-'${paciente.nombre}',
-'${paciente.dni}',
-'${paciente.fecha}',
-'${paciente.hora}',
-'${paciente.sector}'
-)">
-📄 Descargar Constancia
-</button>
-</div>
-`;
+document.getElementById("resultado").innerHTML =
+"<div class='ok'><h2>✅ ASISTENCIA CONFIRMADA</h2><p><b>Paciente:</b> "
++ paciente.nombre +
+"</p></div>";
 
 }else{
 
-document.getElementById("resultado").innerHTML = `
-<div class="er">
-<h2>❌ No se encontraron registros</h2>
-</div>
-`;
+document.getElementById("resultado").innerHTML =
+"<div class='er'><h2>❌ No se encontraron registros</h2></div>";
 
 }
 
