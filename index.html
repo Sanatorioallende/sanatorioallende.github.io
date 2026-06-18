@@ -166,6 +166,14 @@ sector:"Guardia Central"
 {
 dni:"42475574",
 nombre:"BRENDA ROCÍO LESCANO CHANQUIA",
+fecha:"04/06/2026",
+hora:"10:21",
+sector:"Guardia Central"
+},
+
+{
+dni:"42475574",
+nombre:"BRENDA ROCÍO LESCANO CHANQUIA",
 fecha:"06/06/2026",
 hora:"09:24",
 sector:"Guardia Central"
@@ -173,36 +181,47 @@ sector:"Guardia Central"
 
 ];
 
+
 function buscar(){
 
 const dni = document.getElementById("dni").value.trim();
 
-const paciente = pacientes.find(function(p){
+const resultados = pacientes.filter(function(p){
 return p.dni === dni;
 });
 
-if(paciente){
+if(resultados.length > 0){
 
-document.getElementById("resultado").innerHTML = `
-<div class="ok">
-<h2>✅ ASISTENCIA CONFIRMADA</h2>
-<br>
+let html = '<div class="ok"><h2>✅ ASISTENCIAS ENCONTRADAS</h2><br>';
+
+resultados.forEach(function(paciente){
+
+html += `
+
 <p><b>Paciente:</b> ${paciente.nombre}</p>
 <p><b>DNI:</b> ${paciente.dni}</p>
 <p><b>Fecha:</b> ${paciente.fecha}</p>
 <p><b>Hora:</b> ${paciente.hora}</p>
 <p><b>Sector:</b> ${paciente.sector}</p>
+
 <button
 class="pdf"
 onclick="descargarPDF('${paciente.nombre}','${paciente.dni}','${paciente.fecha}','${paciente.hora}','${paciente.sector}')">
-📄 Descargar Constancia
-</button>
-</div>
+📄 Descargar Constancia (${paciente.fecha}) </button>
+
+<hr style="margin:20px 0;">
 `;
+
+});
+
+html += '</div>';
+
+document.getElementById("resultado").innerHTML = html;
 
 }else{
 
 document.getElementById("resultado").innerHTML = `
+
 <div class="er">
 <h2>❌ No se encontraron registros</h2>
 </div>
